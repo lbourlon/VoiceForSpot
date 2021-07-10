@@ -20,6 +20,8 @@
 
 # Other Functionalities
 - Simple : whether, certain alt-coin value?, Tell me a joke
+- Complex : Youtube Interaction? see chromecast interaction?
+- Time Consuming : put it on the rasbpi
 
 
 
