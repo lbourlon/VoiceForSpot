@@ -3,7 +3,7 @@ import speech_recognition as sr
 
 stop_listening_flag = False
 
-#TODO (on going): Make it listen in the background
+#TODO (on going): Make it listen in the background // use threading?
 
 def recognize():
     # obtain audio from the microphone
@@ -35,14 +35,16 @@ def recognize():
                         if (new_array != None or new_array != ""):
                             return new_array
                         else : 
-                            # TODO : Descobrir pq essa porra n vem até aqui
                             return "Beneath The Brine"
                 except :
-                    pass
+                    return "Beneath The Brine"
+            else:
+                return recognize()
             
         except:
             print("Please repeat")
 
+#Don't remember this function working, check later
 def launch_listening_thread():
     """ Launches another listening thread
         The function returns an array containing the words

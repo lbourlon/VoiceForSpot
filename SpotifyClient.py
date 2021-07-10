@@ -37,10 +37,10 @@ class SpotifyClient():
 
     def get_device_id(self, device):
         """Returns a device id """
-        device_list = get_list_of_devices(self.tokenManager.get_token())
+        device_list = self.get_list_of_devices(self.tokenManager.get_token())
         
         try:
-            for e in list_of_devices:
+            for e in self.list_of_devices:
                 if (e["name"] == device):
                     return e["id"]
         except:

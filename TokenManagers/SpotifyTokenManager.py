@@ -65,9 +65,9 @@ class SpotifyTokenManager():
         #if it works the response will contain a refresh_token, that needs to be kept as well as the first access_token data
         response_data = response.json()  # contains : { "access_token", "token_type", "scope", "expires_in", "refresh_token"}
 
-        reresh_token = response_data["refresh_token"]
+        refresh_token = response_data["refresh_token"]
         with open('./TokenManagers/SpotifyRefreshToken.json', 'w') as jsonFile:
-            json.dump(reresh_token, jsonFile)
+            json.dump(refresh_token, jsonFile)
 
         response_data.pop("refresh_token")
 
