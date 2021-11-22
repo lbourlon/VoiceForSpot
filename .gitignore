@@ -1,2 +1,5 @@
 *.json
 secrets_.py
+*.pyc
+*.pem
+__pycache__/

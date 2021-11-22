@@ -7,17 +7,15 @@ isDebugging = True
 
 
 if __name__ == '__main__':
-    #song =  voiceRecognition()
 
     spotifyClient = SpotifyClient.SpotifyClient()
 
-    rec = voiceRec.recognize()
+    audio_escrito = voiceRec.recognize2()
 
-    if(rec == "" or rec == None):
-        rec = "Beneath The Brine"
+    #spotifyClient.volume(option = "quieter")
 
+    voiceRec.command_parser(audio_escrito, spotifyClient)
 
-    spotifyClient.play_song(song = rec)
 
     
 

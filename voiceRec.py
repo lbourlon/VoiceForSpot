@@ -1,5 +1,9 @@
 import time
 import speech_recognition as sr
+import SpotifyClient
+import utility
+import string
+
 
 stop_listening_flag = False
 
@@ -44,6 +48,52 @@ def recognize():
         except:
             print("Please repeat")
 
+def recognize2():
+  # obtain audio from the microphone
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("listening (standby)")
+        audio = r.listen(source)
+
+        try:
+            text = r.recognize_google(audio)
+            print(text)
+            return text
+        
+        except:
+            print("Please repeat")
+            return "nope"
+
+"""
+This function parses the text_input for the different commands.
+It assumes the vocal assistant keyword "Hey John" to be already stripped
+from the text data.
+"""
+def command_parser(text, spot_client):
+    
+    if (text == "hey John" or text == "hey john"):
+        novo_texto = recognize2()
+        return command_parser(novo_texto, spot_client)
+    
+
+    input_text_list = text.split()
+
+    weather_commands = ["weather"]
+
+    #command_mega_list = [spotify_commands, weather_commands]
+
+    for command in SpotifyClient.spotify_commands:
+        if command == input_text_list[0]:
+            # TODO: get corresponding function to be called
+            spot_client.execute_command(input_text_list)
+            return    
+
+    print("nao deu certo brother")
+    
+
+
+
+
 #Don't remember this function working, check later
 def launch_listening_thread():
     """ Launches another listening thread
@@ -65,15 +115,10 @@ def launch_listening_thread():
             print("Could not request results from Speech Recognition service; {0}".format(e))
 
         
-    
+ 
 
 
-def command_parser(input_text_array):
-    
-    
-
-    pass
-
+   
 
 #TODO : replace the function above with the code below, still needs testing
 def callback(recognizer, audio):

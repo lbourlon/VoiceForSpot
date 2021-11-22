@@ -93,6 +93,7 @@ class SpotifyTokenManager():
         encoded_creds64 = base64.b64encode(client_creds.encode())
 
         query = "https://accounts.spotify.com/api/token"
+        response = requests.Response
 
         try:
             response = requests.post(

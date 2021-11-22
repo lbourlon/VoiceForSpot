@@ -4,14 +4,39 @@ from secrets_ import client_id, client_secret_id
 import base64
 import datetime
 
+import utility
+
+
 from utility import responseDebugg
 from TokenManagers.SpotifyTokenManager import SpotifyTokenManager
 
+spotify_commands = ["play", "pause", "resume", "louder", "quieter", "mute", "blast"]
 class SpotifyClient():
+#se pa fazer um dicionario com chaves como commandos
+
+    # spot_com_dict = {"play":self.play_song}
     """A Spotify client class"""
     def __init__(self):
         self.tokenManager = SpotifyTokenManager()
 
+    def execute_command(self, command_input):
+        command = command_input[0]
+
+        # ["play", "Stairway", "to", "h"]
+
+        last_command = ""
+        for word in command_input[1:]:
+            last_command += word + " "
+
+        if command == "play":
+            self.play_song(song = last_command)
+
+        if command == "resume" or command == "pause" :
+            self.resume_pause_song(option = command)
+        
+        if command == "louder" or "quieter" or "mute" or "blast":
+            self.set_volume(option = command)
+        
 
     def get_list_of_devices(self):
         """Returns a list of active connected devices
@@ -37,7 +62,8 @@ class SpotifyClient():
 
     def get_device_id(self, device):
         """Returns a device id """
-        device_list = self.get_list_of_devices(self.tokenManager.get_token())
+        # device_list = self.get_list_of_devices(self.tokenManager.get_token())
+        device_list = self.get_list_of_devices()
         
         try:
             for e in self.list_of_devices:
@@ -79,11 +105,9 @@ class SpotifyClient():
         #TODO : Check for active
 
         song_uri = self.get_song_uri(song)
-        
 
         request_body = json.dumps({
             "uris": ["{}".format(song_uri)],
-            
         })
 
         query = "https://api.spotify.com/v1/me/player/play"
@@ -100,3 +124,63 @@ class SpotifyClient():
         )
         
         responseDebugg(response, "Play Song")
+
+    def resume_pause_song(self, option = None, device_id = None):
+
+        # dev_id = self.get_device_id('lbourlon')
+        if option == "resume" :
+            option = "play"
+
+        query = f"https://api.spotify.com/v1/me/player/{option}"
+
+        if(device_id): query += "?device_id=" + device_id
+
+        response = requests.put(
+            query,
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization":"Bearer {}".format(self.tokenManager.get_token())
+            }
+        )
+
+        responseDebugg(response, "resume / start")
+
+
+    def set_volume(self, option = None, device_id = None):
+        devices = self.get_list_of_devices()
+        dev = devices[0]
+
+        current_volume = dev["volume_percent"]
+        volume = ""
+
+        # volume_dict {
+        #     "mute":"0",
+        #     "blast":"100",
+        #     "louder": str(utility.get_new_volume(current_volume, "louder")),
+        #     "quieter": str(utility.get_new_volume(current_volume, "quieter"))
+        # }
+        if option == "mute": volume = "0"
+        elif option == "blast": volume = "100"
+        elif option == "louder": volume = str(utility.get_new_volume(current_volume, "louder"))
+        elif option == "quieter": volume = str(utility.get_new_volume(current_volume, "quieter"))
+
+
+
+        query = f"https://api.spotify.com/v1/me/player/volume"
+
+        if(device_id): query += "?device_id=" + device_id
+        query += "?volume_percent=" + volume
+
+        response = requests.put(
+            query,
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization":"Bearer {}".format(self.tokenManager.get_token())
+            }
+        )
+
+        responseDebugg(response, "resume / start")
+        # print (f"the device {name} has the volume {current_volume}")
+
+
+        return
