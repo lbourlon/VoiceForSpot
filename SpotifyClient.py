@@ -1,3 +1,6 @@
+# This Object is in charge of the Spotify API communication,
+# Doesn't handle Authentication.
+
 import requests
 import json
 from secrets_ import client_id, client_secret_id
@@ -10,19 +13,21 @@ import utility
 from utility import responseDebugg
 from TokenManagers.SpotifyTokenManager import SpotifyTokenManager
 
+# Maybe use a dictionnary to store all the commands.
 spotify_commands = ["play", "pause", "resume", "louder", "quieter", "mute", "blast"]
+
 class SpotifyClient():
-#se pa fazer um dicionario com chaves como commandos
+    """Spotify client class in charge of communicating with the API."""
 
     # spot_com_dict = {"play":self.play_song}
-    """A Spotify client class"""
     def __init__(self):
         self.tokenManager = SpotifyTokenManager()
 
+    def __str__(self):
+        self.
+
     def execute_command(self, command_input):
         command = command_input[0]
-
-        # ["play", "Stairway", "to", "h"]
 
         last_command = ""
         for word in command_input[1:]:
@@ -31,12 +36,14 @@ class SpotifyClient():
         if command == "play":
             self.play_song(song = last_command)
 
-        if command == "resume" or command == "pause" :
+        elif command == "resume" or command == "pause" :
             self.resume_pause_song(option = command)
         
-        if command == "louder" or "quieter" or "mute" or "blast":
+        elif command == "louder" or "quieter" or "mute" or "blast":
             self.set_volume(option = command)
         
+        else :
+            print("Command not found.")
 
     def get_list_of_devices(self):
         """Returns a list of active connected devices
@@ -56,8 +63,6 @@ class SpotifyClient():
         responseDebugg(response, "Device Search")
         device_list = response.json()["devices"]
 
-        
-
         return device_list
 
     def get_device_id(self, device):
@@ -72,7 +77,6 @@ class SpotifyClient():
         except:
             #TODO (Léon) Make an exception for this (token errors too)
             print("coulnd't find any matching device")
-
 
     def get_song_uri(self, song_name):
         """ Gets song uri (first result)"""
@@ -95,14 +99,12 @@ class SpotifyClient():
         
         return track_data[0]["uri"]
 
-
-
     def play_song(self, song = None, device_id = None):
         """
         Plays the song on the specified device
         scopes : user-modify-playback-state
         """
-        #TODO : Check for active
+        # TODO : Check for active
 
         song_uri = self.get_song_uri(song)
 
@@ -112,7 +114,7 @@ class SpotifyClient():
 
         query = "https://api.spotify.com/v1/me/player/play"
 
-        if(device_id): query = query + + "?device_id=" + device_id
+        if(device_id): query += + "?device_id=" + device_id
 
         response = requests.put(
             query,
@@ -126,7 +128,7 @@ class SpotifyClient():
         responseDebugg(response, "Play Song")
 
     def resume_pause_song(self, option = None, device_id = None):
-
+        """Method to resume / pause current song."""
         # dev_id = self.get_device_id('lbourlon')
         if option == "resume" :
             option = "play"
@@ -145,8 +147,8 @@ class SpotifyClient():
 
         responseDebugg(response, "resume / start")
 
-
     def set_volume(self, option = None, device_id = None):
+        """Method to set the volume of the active player."""
         devices = self.get_list_of_devices()
         dev = devices[0]
 

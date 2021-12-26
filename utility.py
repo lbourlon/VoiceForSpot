@@ -6,7 +6,10 @@ This file will contain any utility funtion
 
 
 def responseDebugg(response, queryName = "None"):
-    """Toggleable debug function for responses"""
+    """ Toggleable debug function for responses
+        Requires of every function to call upon this one
+        if it receives a response.
+    """
 
     if (isDebugging == False) :
         return

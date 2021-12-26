@@ -1,3 +1,5 @@
+# This program is used to record the audio and translate it to text.
+
 import time
 import speech_recognition as sr
 import SpotifyClient
@@ -10,46 +12,8 @@ stop_listening_flag = False
 #TODO (on going): Make it listen in the background // use threading?
 
 def recognize():
-    # obtain audio from the microphone
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("listening (standby)")
-        audio = r.listen(source)
+    """Simple but decent voice recognition function."""
 
-        try:
-            text = r.recognize_google(audio)
-            print(text)
-
-            
-            if (text == "hey John" or text == "hey john"):
-                with sr.Microphone() as source2:
-                    print("yes?")
-                    new_audio = r.listen(source2)
-                    
-
-                try:
-                    newT = r.recognize_google(new_audio)
-                    array = newT.split()
-
-                    if(array[0] == "play"):
-                        new_array = " ".join(array[1:])
-                        print("Playing " + new_array)
-
-                        # why doesn't this work, why
-                        if (new_array != None or new_array != ""):
-                            return new_array
-                        else : 
-                            return "Beneath The Brine"
-                except :
-                    return "Beneath The Brine"
-            else:
-                return recognize()
-            
-        except:
-            print("Please repeat")
-
-def recognize2():
-  # obtain audio from the microphone
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("listening (standby)")
@@ -90,11 +54,6 @@ def command_parser(text, spot_client):
 
     print("nao deu certo brother")
     
-
-
-
-
-#Don't remember this function working, check later
 def launch_listening_thread():
     """ Launches another listening thread
         The function returns an array containing the words
@@ -114,12 +73,7 @@ def launch_listening_thread():
         except sr.RequestError as e:
             print("Could not request results from Speech Recognition service; {0}".format(e))
 
-        
  
-
-
-   
-
 #TODO : replace the function above with the code below, still needs testing
 def callback(recognizer, audio):
     try:
@@ -142,7 +96,6 @@ def callback(recognizer, audio):
         print("Speech Recognition could not understand the audio")
     except sr.RequestError as e:
         print("Could not request results from Speech Recognition service; {0}".format(e))
-    
     
 
 def main():
@@ -172,5 +125,7 @@ def main():
             isRunning = True
     
     print("End of program")
+
+# To allow this part of the program to be runned standalone.
 if __name__ == "__main__":
     main()
