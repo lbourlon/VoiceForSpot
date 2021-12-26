@@ -2,4 +2,5 @@
 secrets_.py
 *.pyc
 *.pem
-__pycache__/
+*/__pycache__/
+__init__.py
