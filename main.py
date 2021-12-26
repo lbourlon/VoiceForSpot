@@ -1,3 +1,5 @@
+# This is the main program, in charge of initializing the different components.
+
 import SpotifyClient
 import voiceRec
 
@@ -7,16 +9,17 @@ isDebugging = True
 
 
 if __name__ == '__main__':
+    # Initializing TokenManagers
+    # TODO
 
+    # Initializing clients
     spotifyClient = SpotifyClient.SpotifyClient()
 
-    audio_escrito = voiceRec.recognize2()
+    # Program main loop
+    while(True):
+        recognized_audio = voiceRec.recognize2()
 
-    #spotifyClient.volume(option = "quieter")
+        # Go to next loop if recognition failed.
+        if(recognized_audio == "Nope"): continue
 
-    voiceRec.command_parser(audio_escrito, spotifyClient)
-
-
-    
-
-
+        voiceRec.command_parser(recognized_audio, spotifyClient)
