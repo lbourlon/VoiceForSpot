@@ -24,7 +24,7 @@ class SpotifyClient():
         self.tokenManager = SpotifyTokenManager()
 
     def __str__(self):
-        self.
+        return ("I'm john, running on {get_device ...}")
 
     def execute_command(self, command_input):
         command = command_input[0]

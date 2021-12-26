@@ -5,7 +5,7 @@
 - Poor Secret storing
 
 
-# General TODOs : 
+# General TODOs :
 - The authentication should be run on a webserver where you can just log in
 - Make the program accept one sentence inputs : 
  -- input1 : "Hey John, play Stairway To Heaven"
@@ -14,6 +14,7 @@
 
 
 # Spotify TODOs :
+- Use "GET_playback_state" on SpotiClient https://developer.spotify.com/documentation/web-api/reference/#/operations/get-information-about-the-users-current-playback
 - Authentication
 - Simple: play, pause, volup, voldown, next song commands
 - More complex : Playlists play
@@ -21,7 +22,9 @@
 # Other Functionalities
 - Simple : whether, certain alt-coin value?, Tell me a joke
 - Complex : Youtube Interaction? see chromecast interaction?
-- Time Consuming : put it on the rasbpi
+- Time Consuming : put it on the rasbpi, with mini-screen / battery / speaker (JBL GO?)
+    or use LCD crystal display ?  
+- Change name for something better ("dude / dudette" ?)
 
 
 
