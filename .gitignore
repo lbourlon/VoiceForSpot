@@ -1,5 +1,6 @@
 *.json
-secrets_.py
+secrets_for_the_app.py
+secrets_for_loging.py
 *.pyc
 *.pem
 */__pycache__/

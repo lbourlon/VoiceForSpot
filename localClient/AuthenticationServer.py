@@ -16,7 +16,7 @@ def run_secure_socketed_server():
 
 
 def run_cgi_server():
-    port = 80
+    port = 7777 
     address = ("", port)
 
     server = http.server.HTTPServer

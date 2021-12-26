@@ -6,17 +6,19 @@ import os
 
 
 import sys
-sys.path.append('../')
+sys.path.append('../')  # So that the working directory is the same as main.
 
-from secrets_ import client_id, client_secret_id
+from secrets_for_the_app.py import client_id, client_secret_id
 
 class SpotifyTokenManager():
     def __init__(self):
         self.dateformat = "%d/%m/%Y at %H:%M and %S,%f seconds"
 
-        path = './TokenManagers/SpotifyRefreshToken.json'
+        path_to_secrets = "./secrets"
+        path = './secrets/SpotifyRefreshToken.json'
 
-        if not os.path.isfile(path): #if the refresh token exists we assume the user is authorized
+        #if the refresh token exists we assume the user is authorized
+        if not os.path.isfile(path): 
             self.get_authorization()
 
 
@@ -30,9 +32,10 @@ class SpotifyTokenManager():
             https://accounts.spotify.com/authorize?client_id=7f4c93f7c66c4df0b38ffadf72fd190d&response_type=code&redirect_uri=https://localhost/confirmation.py&scope=user-modify-playback-state%20user-read-playback-state%20playlist-modify-public%20playlist-modify-private%20
         
         """
-        
-        authorization_code = "AQBLeKYWvxF6PjVsVlfwwrsRaUSlhKZ4YrjKxzD0lEnHaS1jiyGMjup7ryFOF7DYYSBPtYkro2kNaZ3XIk0GbRTHhQKI2EEiKN3rgJsuAdZT7tFzx_lRAzOy7atWCKDsyZYfP7Vp1XV0414TDXXLHZrcn9Sv1PRs1TDJUkGzF0_vGZIEnYXxSXHSrbzIg6Clu1WamMoEJ0X7mGsHdQTc5bol8L7ivBCCkeVXZg77G8p8CAUkPgvPs8wotLk7ix7QADf5VSgyBQnk0xqEEvcjlSpJ0Lkxi6xBqAv0yD95YNK8JIp-RpSChtmuCQw"
-        #test 
+
+        secret = json.load(self.path_to_secrets + "secrets_for_login.json")
+        authorization_code = secrets["spotify"]
+
         # From here we send a query containing the authorization_code and user info to spotify
         request_body = {
             "grant_type": "authorization_code",
