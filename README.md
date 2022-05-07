@@ -1,3 +1,12 @@
-# VocalAssistant
+# Voice4Spot
 
-Not much yet, working on spotify integration aswell as better vocal recognition.
+The idea was to make a vocal assistant that mostly interacts with Spotify.
+
+This project was mostly done to learn about how to interact with different APIs.
+Especially when it comes to authentication. 
+
+It's bad don't use it.
+
+
+
+## Usage : TODO

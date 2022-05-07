@@ -3,7 +3,6 @@
 
 import requests
 import json
-from secrets_ import client_id, client_secret_id
 import base64
 import datetime
 

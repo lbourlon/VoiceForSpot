@@ -3,6 +3,7 @@
 - The readme.md is pretty bad
 - The way the voice recon is set up it only recognizes the command "play"
 - Poor Secret storing
+- "Access Revoked" isn't well managed
 
 
 # General TODOs :

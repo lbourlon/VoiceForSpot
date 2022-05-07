@@ -1,10 +1,9 @@
 # This is the main program, in charge of initializing the different components.
 
 import SpotifyClient
-import voiceRec
+#import voiceRec
 
-# import localClient.AuthenticationServer as auth
-
+#import localClient.AuthenticationServer as auth
 isDebugging = True
 
 
@@ -13,7 +12,10 @@ if __name__ == '__main__':
     # TODO
 
     # Initializing clients
-    spotifyClient = SpotifyClient.SpotifyClient()
+    spot_client = SpotifyClient.SpotifyClient()
+    spot_client.play_song("High Way To Hell")
+
+"""
 
     # Program main loop
     while(True):
@@ -22,4 +24,4 @@ if __name__ == '__main__':
         # Go to next loop if recognition failed.
         if(recognized_audio == "Nope"): continue
 
-        voiceRec.command_parser(recognized_audio, spotifyClient)
+        voiceRec.command_parser(recognized_audio, spot_client)"""
