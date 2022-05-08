@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     # Initializing clients
     spot_client = SpotifyClient.SpotifyClient()
-    spot_client.play_song("High Way To Hell")
+    spot_client.play_song("Le metro Bazar et bémols")
 
 """
 
